@@ -1,5 +1,3 @@
-create database inglesapp;
-
 create table usuario(
 	id integer not null primary key auto_increment,
 	email varchar(100),
