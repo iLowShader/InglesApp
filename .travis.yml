@@ -2,15 +2,13 @@ language: java
 jdk:
   - oraclejdk8
 
+env:
+  - DB=mysql db_dsn='mysql://root@127.0.0.1/inglesapp'
+
 services:
   - mysql
-  
-addons:
-  apt:
-    sources:
-      - mysql-5.7-trusty
-    packages:
-      - mysql-server
 
 before_install:
-  - mysql -e 'CREATE DATABASE inglesapp;'
+  - sudo service mysql stop || sudo service mysql-5.6 stop || sudo stop mysql-5.6 || sudo stop mysql || echo "failed to stop mysql"
+  - sudo docker run -d -p 3306:3306 mysql:5.7
+  - mysql -u root -e "CREATE DATABASE inglesapp;"
