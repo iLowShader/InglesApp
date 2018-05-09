@@ -10,7 +10,7 @@ create table biblioteca(
 );
 
 create table palavras_biblioteca(
-	id_biblioteca integer not null primary key,
+	id_biblioteca integer,
 	foreign key (id_biblioteca) references biblioteca(id),
 	nome varchar(100),
 	traducao1 varchar(100),

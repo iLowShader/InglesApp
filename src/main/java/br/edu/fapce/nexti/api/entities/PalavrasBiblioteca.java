@@ -4,25 +4,33 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "palavras_biblioteca")
 public class PalavrasBiblioteca implements Serializable {
 	
-	
-	
-  private String nome;
-	private String traducao1;
+	private static final long serialVersionUID = 1L;
+	private Biblioteca biblioteca;
+	private String nome;
+  private String traducao1;
   private String traducao2;
   private String traducao3;
 	
 	public PalavrasBiblioteca() {
 	}
   
+	@ManyToOne
+	public Biblioteca getBiblioteca() {
+		return biblioteca;
+	}
+	
+	public void setBiblioteca(Biblioteca biblioteca) {
+		this.biblioteca = biblioteca;
+	}
+	
+	
   @Column(name = "nome", nullable = false)
 	public String getNome() {
 		return nome;

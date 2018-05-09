@@ -13,7 +13,8 @@ import javax.persistence.Table;
 @Table(name = "biblioteca")
 public class Biblioteca implements Serializable {
 	
-	
+
+	private static final long serialVersionUID = 1L;
 	private Long id;
 	private String nome;
 	
