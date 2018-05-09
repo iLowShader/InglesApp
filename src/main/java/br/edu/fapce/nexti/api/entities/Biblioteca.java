@@ -39,9 +39,5 @@ public class Biblioteca implements Serializable {
 		this.nome = nome;
 	}
 
-	@Override
-	public String toString() {
-		return "Biblioteca [id=" + id + ", nome=" + nome + "];
-	}
 
 }
