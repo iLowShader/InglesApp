@@ -1,27 +1,27 @@
 package br.edu.fapce.nexti.api.entities;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity
+@Embeddable
 @Table(name = "palavras_biblioteca")
-public class PalavrasBiblioteca implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
+public class PalavrasBiblioteca {
+
 	private Biblioteca biblioteca;
 	private String nome;
-  private String traducao1;
-  private String traducao2;
-  private String traducao3;
+	private String traducao1;
+	private String traducao2;
+	private String traducao3;
 	
 	public PalavrasBiblioteca() {
 	}
   
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_biblioteca")
 	public Biblioteca getBiblioteca() {
 		return biblioteca;
 	}
