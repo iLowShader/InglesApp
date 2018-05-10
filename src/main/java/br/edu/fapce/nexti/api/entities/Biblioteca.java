@@ -1,10 +1,12 @@
 package br.edu.fapce.nexti.api.entities;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,22 +16,27 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "biblioteca")
-public class Biblioteca {
+public class Biblioteca implements Serializable{
 	
-	private Long id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int id;
 	private String nome;
 	private Set<PalavrasBiblioteca> palavras;
 	
 	public Biblioteca() {
+		
 	}
 
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -42,7 +49,7 @@ public class Biblioteca {
 		this.nome = nome;
 	}
 	
-	@OneToMany(mappedBy = "Biblioteca", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "biblioteca", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public Set<PalavrasBiblioteca> getPalavras() {
         return palavras;
     }
