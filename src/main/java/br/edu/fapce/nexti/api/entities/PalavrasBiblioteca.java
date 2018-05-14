@@ -86,5 +86,4 @@ public class PalavrasBiblioteca implements Serializable{
 		this.traducao3 = traducao3;
 	}
 
-
 }
