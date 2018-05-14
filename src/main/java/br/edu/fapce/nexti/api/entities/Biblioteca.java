@@ -24,7 +24,6 @@ public class Biblioteca implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private String nome;
-	private Set<PalavrasBiblioteca> palavras;
 	
 	public Biblioteca() {
 		
@@ -48,14 +47,6 @@ public class Biblioteca implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	@OneToMany(mappedBy = "biblioteca", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public Set<PalavrasBiblioteca> getPalavras() {
-        return palavras;
-    }
-	
-	public void setBiblioteca(Set<PalavrasBiblioteca> palavras) {
-		this.palavras = palavras;
-	}
+
 	
 }
