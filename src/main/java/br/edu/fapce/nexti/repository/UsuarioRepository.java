@@ -1,8 +1,8 @@
-package Repository;
+package br.edu.fapce.nexti.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import br.edu.fapce.nexti.api.entities.Usuario;
+import br.edu.fapce.nexti.model.Usuario;
 
 public interface UsuarioRepository extends  CrudRepository<Usuario, Long> {
 

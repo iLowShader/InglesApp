@@ -1,4 +1,4 @@
-package br.edu.fapce.nexti.api.entities;
+package br.edu.fapce.nexti.model;
 
 import java.io.Serializable;
 import java.util.List;

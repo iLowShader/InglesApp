@@ -1,4 +1,4 @@
-package br.edu.fapce.nexti.api;
+package br.edu.fapce.nexti.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import Repository.BibliotecaRepository;
-import Repository.PalavrasBibliotecaRepository;
-import Repository.UsuarioRepository;
-import br.edu.fapce.nexti.api.entities.Biblioteca;
-import br.edu.fapce.nexti.api.entities.PalavrasBiblioteca;
-import br.edu.fapce.nexti.api.entities.Usuario;
+import br.edu.fapce.nexti.model.Biblioteca;
+import br.edu.fapce.nexti.model.PalavrasBiblioteca;
+import br.edu.fapce.nexti.model.Usuario;
+import br.edu.fapce.nexti.repository.BibliotecaRepository;
+import br.edu.fapce.nexti.repository.PalavrasBibliotecaRepository;
+import br.edu.fapce.nexti.repository.UsuarioRepository;
 
 @Controller
 public class UsuarioController {
@@ -26,7 +26,7 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioRepository repository3;
 
-	@RequestMapping("/")
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index() {
 		return "index";
 	}
@@ -41,7 +41,7 @@ public class UsuarioController {
 		return "index";
 	}
 
-	@RequestMapping("dashboard")
+	@RequestMapping("/dashboard")
 	public String biblioteca(Model model) {
 		Iterable<Biblioteca> bibliotecas = repository.findAll();
 
@@ -50,7 +50,7 @@ public class UsuarioController {
 		return "dashboard";
 	}
 
-	@RequestMapping("biblioteca/{nome}")
+	@RequestMapping("/biblioteca/{nome}")
 	public String listaPalavras(Model model, Biblioteca biblioteca) {
 
 		Iterable<PalavrasBiblioteca> palavras = repository2.findByBiblioteca(biblioteca);
