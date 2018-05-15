@@ -10,6 +10,7 @@ import Repository.PalavrasBibliotecaRepository;
 import br.edu.fapce.nexti.api.entities.Biblioteca;
 import br.edu.fapce.nexti.api.entities.PalavrasBiblioteca;
 
+
 @Controller
 public class UsuarioController {
 	
@@ -29,11 +30,11 @@ public class UsuarioController {
 		Iterable<Biblioteca> bibliotecas = repository.findAll();
 
 		model.addAttribute("bibliotecas", bibliotecas);
-
+		
 		return "dashboard";
 	}
 
-	@RequestMapping("open-library")
+	@RequestMapping("biblioteca/{nome}")
 	public String listaPalavras(Model model, Biblioteca biblioteca) {
 
 		Iterable<PalavrasBiblioteca> palavras = repository2.findByBiblioteca(biblioteca);
