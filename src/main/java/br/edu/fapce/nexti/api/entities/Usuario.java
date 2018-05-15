@@ -13,7 +13,6 @@ import javax.persistence.Table;
 @Table(name = "usuario")
 public class Usuario implements Serializable {
 	
-	
 	/**
 	 * 
 	 */
@@ -25,6 +24,12 @@ public class Usuario implements Serializable {
 	public Usuario() {
 	}
 
+	public Usuario(String email, String senha) {
+		super();
+		this.email = email;
+		this.senha = senha;
+	}
+	
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
 	public Long getId() {
