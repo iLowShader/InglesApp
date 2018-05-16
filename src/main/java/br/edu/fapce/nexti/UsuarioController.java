@@ -1,4 +1,4 @@
-package br.edu.fapce.nexti.controller;
+package br.edu.fapce.nexti;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,9 +26,14 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioRepository repository3;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index() {
 		return "index";
+	}
+	
+	@RequestMapping(value = "/error", method = RequestMethod.GET)
+	public String index1() {
+		return "404";
 	}
 
 	@RequestMapping(value = "cadastrar", method = RequestMethod.POST)
