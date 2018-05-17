@@ -26,7 +26,7 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioRepository repository3;
 
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index() {
 		return "index";
 	}
@@ -35,15 +35,21 @@ public class UsuarioController {
 	public String index1() {
 		return "404";
 	}
+	
+	@RequestMapping(value = "/register")
+	public String cadastrar() {
 
-	@RequestMapping(value = "cadastrar", method = RequestMethod.POST)
+		return "register";
+	}
+
+	@RequestMapping(value = "registersuccess", method = RequestMethod.POST)
 	public String cadastrar(@RequestParam("email") String email, @RequestParam("senha") String senha, Model model) {
 
 		Usuario novoUsuario = new Usuario(email, senha);
 
 		repository3.save(novoUsuario);
 
-		return "index";
+		return "register";
 	}
 
 	@RequestMapping("/dashboard")
