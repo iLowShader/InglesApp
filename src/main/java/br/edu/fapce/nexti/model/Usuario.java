@@ -13,7 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.web.context.WebApplicationContext;
+
 @Entity
+@Scope(value=WebApplicationContext.SCOPE_SESSION)
 @Table(name = "usuario")
 public class Usuario implements Serializable {
 	
