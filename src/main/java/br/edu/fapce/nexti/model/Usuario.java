@@ -1,12 +1,16 @@
 package br.edu.fapce.nexti.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,6 +24,8 @@ public class Usuario implements Serializable {
 	private Long id;
 	private String email;
 	private String senha;
+	private List<Biblioteca> bibliotecas;
+	
 	
 	public Usuario() {
 	}
@@ -58,9 +64,13 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 
-	@Override
-	public String toString() {
-		return "Usuario [id=" + id + ", email=" + email + ", senha=" + senha;
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	public List<Biblioteca> getBibliotecas() {
+		return bibliotecas;
+	}
+
+	public void setBibliotecas(List<Biblioteca> bibliotecas) {
+		this.bibliotecas = bibliotecas;
 	}
 
 }

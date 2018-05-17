@@ -20,7 +20,7 @@ public class PalavrasBiblioteca implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private Biblioteca biblioteca;
-	private int id;
+	private Long id;
 	private String nome;
 	private String traducao1;
 	private String traducao2;
@@ -31,7 +31,6 @@ public class PalavrasBiblioteca implements Serializable{
 	}
   
 	@ManyToOne(fetch = FetchType.EAGER)
-	//@JoinColumn(name = "id_biblioteca")
 	public Biblioteca getBiblioteca() {
 		return biblioteca;
 	}
@@ -42,11 +41,11 @@ public class PalavrasBiblioteca implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	

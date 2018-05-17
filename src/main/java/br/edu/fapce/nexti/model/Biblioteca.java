@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -22,7 +23,8 @@ public class Biblioteca implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int id;
+	private Long id;
+	private Usuario usuario;
 	private String nome;
 	private List<PalavrasBiblioteca> palavras;
 	
@@ -32,14 +34,24 @@ public class Biblioteca implements Serializable{
 
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
+	
 	@Column(name = "nome", nullable = false)
 	public String getNome() {
 		return nome;
