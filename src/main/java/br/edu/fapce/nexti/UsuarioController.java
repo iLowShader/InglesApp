@@ -1,51 +1,68 @@
 package br.edu.fapce.nexti;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.WebApplicationContext;
 
 import br.edu.fapce.nexti.model.Usuario;
-import br.edu.fapce.nexti.repository.UsuarioRepository;
+import br.edu.fapce.nexti.service.SecurityService;
+import br.edu.fapce.nexti.service.UserService;
+import br.edu.fapce.nexti.validator.UserValidator;
+
 
 @Controller
-@Scope(value=WebApplicationContext.SCOPE_REQUEST)
 public class UsuarioController {
 
 	@Autowired
-	private UsuarioRepository repository;
-
-	@RequestMapping(value = "/")
-	public String index() {
-		return "index";
-	}
+	private UserService userService;
 	
-	@RequestMapping(value = "/error", method = RequestMethod.GET)
-	public String index1() {
-		return "404";
-	}
+	@Autowired
+	private SecurityService securityService;
 	
-	@RequestMapping(value = "/register")
-	public String cadastrar() {
-
+	@Autowired
+    private UserValidator userValidator;
+	
+	@RequestMapping(value="/register", method = RequestMethod.GET)
+	public String cadastro(Model model) {
+		model.addAttribute("formularioUsuario", new Usuario());
+		
 		return "register";
 	}
-
-	@RequestMapping(value = "registersuccess", method = RequestMethod.POST)
-	public String cadastrar(@RequestParam("email") String email, @RequestParam("senha") String senha, Model model) {
-
-		Usuario novoUsuario = new Usuario(email, senha);
-
-		repository.save(novoUsuario);
-
-		return "register";
-	}
-
 	
+	@RequestMapping(value = "/register", method =RequestMethod.POST)
+	public String cadastro(@ModelAttribute("formularioUsuario") Usuario formularioUsuario, BindingResult bidingResult, Model model) {
+		userValidator.validate(formularioUsuario, bidingResult);
+		
+		if(bidingResult.hasErrors()) {
+			return "registration";
+		}
+		
+		userService.save(formularioUsuario);
+		
+		securityService.autologin(formularioUsuario.getEmail(), formularioUsuario.getSenha());
+		
+		return "redirect:/welcome";
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(Model model, String error, String logout) {
+		if (error != null)
+            model.addAttribute("error", "Your username and password is invalid.");
 
+        if (logout != null)
+            model.addAttribute("message", "You have been logged out successfully.");
+
+		
+		return "login";
+	}
+	
+	@RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
+	public String welcome(Model model) {
+		return "welcome";
+	}
 	
 }

@@ -14,13 +14,13 @@ public class BibliotecaController {
 	@Autowired
 	private BibliotecaRepository repository;
 	
-	@RequestMapping("/dashboard")
+	@RequestMapping("/open-library")
 	public String biblioteca(Model model) {
 		Iterable<Biblioteca> bibliotecas = repository.findAll();
 
 		model.addAttribute("bibliotecas", bibliotecas);
 
-		return "dashboard";
+		return "open-library";
 	}
 	
 }

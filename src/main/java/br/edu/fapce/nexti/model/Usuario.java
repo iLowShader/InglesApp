@@ -1,7 +1,7 @@
 package br.edu.fapce.nexti.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,11 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.web.context.WebApplicationContext;
-
 @Entity
-@Scope(value=WebApplicationContext.SCOPE_SESSION)
 @Table(name = "usuario")
 public class Usuario implements Serializable {
 	
@@ -28,16 +24,10 @@ public class Usuario implements Serializable {
 	private Long id;
 	private String email;
 	private String senha;
-	private List<Biblioteca> bibliotecas;
+	private Set<Biblioteca> bibliotecas;
 	
 	
 	public Usuario() {
-	}
-
-	public Usuario(String email, String senha) {
-		super();
-		this.email = email;
-		this.senha = senha;
 	}
 	
 	@Id
@@ -69,11 +59,11 @@ public class Usuario implements Serializable {
 	}
 
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	public List<Biblioteca> getBibliotecas() {
+	public Set<Biblioteca> getBibliotecas() {
 		return bibliotecas;
 	}
 
-	public void setBibliotecas(List<Biblioteca> bibliotecas) {
+	public void setBibliotecas(Set<Biblioteca> bibliotecas) {
 		this.bibliotecas = bibliotecas;
 	}
 
