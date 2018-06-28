@@ -8,4 +8,6 @@ public interface UserService {
 	
 	Usuario findByEmail(String email);
 
+	Iterable<Usuario> findAll();
+
 }

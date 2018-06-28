@@ -26,22 +26,30 @@ public class UsuarioController {
 	@Autowired
     private UserValidator userValidator;
 	
-	@RequestMapping(value="/register", method = RequestMethod.GET)
+	@RequestMapping(value="/registration", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 		model.addAttribute("formularioUsuario", new Usuario());
 		
-		return "register";
+		return "registration";
 	}
 	
-	@RequestMapping(value = "/register", method =RequestMethod.POST)
+	@RequestMapping(value = "/registration", method =RequestMethod.POST)
 	public String cadastro(@ModelAttribute("formularioUsuario") Usuario formularioUsuario, BindingResult bidingResult, Model model) {
 		userValidator.validate(formularioUsuario, bidingResult);
 		
+		
+
 		if(bidingResult.hasErrors()) {
 			return "registration";
 		}
 		
+		
+		
 		userService.save(formularioUsuario);
+		
+		Iterable<Usuario> usuarios = userService.findAll();
+		
+		model.addAttribute("usuarios", usuarios);
 		
 		securityService.autologin(formularioUsuario.getEmail(), formularioUsuario.getSenha());
 		

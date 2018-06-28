@@ -1,16 +1,13 @@
 package br.edu.fapce.nexti;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import org.springframework.stereotype.Controller;
 
-@Controller
-@EnableAutoConfiguration
-@interface
-//@SpringBootApplication
+//@Controller
+//@EnableAutoConfiguration
+@SpringBootApplication
 public class Application extends SpringBootServletInitializer{
 
 	@Override
