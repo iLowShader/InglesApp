@@ -17,7 +17,7 @@ import br.edu.fapce.nexti.model.Usuario;
 import br.edu.fapce.nexti.repository.UsuarioRepository;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService{
+public class UserDetailsServiceImpl implements UserDetailsService {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
