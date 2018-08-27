@@ -15,6 +15,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import br.edu.fapce.nexti.security.utils.JwtTokenUtil;
+
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
 	private static final String AUTH_HEADER = "Authorization";

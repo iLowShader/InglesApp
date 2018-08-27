@@ -1,76 +1,42 @@
 package br.edu.fapce.nexti;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.fapce.nexti.model.Usuario;
-import br.edu.fapce.nexti.service.SecurityService;
-import br.edu.fapce.nexti.service.UserService;
-import br.edu.fapce.nexti.validator.UserValidator;
+import br.edu.fapce.nexti.service.UsuarioService;
 
 
-@Controller
+@RestController
+@CrossOrigin(origins = "*")
 public class UsuarioController {
+	
+	private static final String USUARIO = "/v1/usuario";
 
 	@Autowired
-	private UserService userService;
+	private UsuarioService usuarioService;
 	
-	@Autowired
-	private SecurityService securityService;
-	
-	@Autowired
-    private UserValidator userValidator;
-	
-	@RequestMapping(value="/registration", method = RequestMethod.GET)
-	public String cadastro(Model model) {
-		model.addAttribute("formularioUsuario", new Usuario());
-		
-		return "registration";
-	}
-	
-	@RequestMapping(value = "/registration", method =RequestMethod.POST)
-	public String cadastro(@ModelAttribute("formularioUsuario") Usuario formularioUsuario, BindingResult bidingResult, Model model) {
-		userValidator.validate(formularioUsuario, bidingResult);
-		
-		
+	@SuppressWarnings("rawtypes")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+	@RequestMapping(value = USUARIO, method = GET)
+	public ResponseEntity findAll() {
 
-		if(bidingResult.hasErrors()) {
-			return "registration";
-		}
-		
-		
-		
-		userService.save(formularioUsuario);
-		
-		Iterable<Usuario> usuarios = userService.findAll();
-		
-		model.addAttribute("usuarios", usuarios);
-		
-		securityService.autologin(formularioUsuario.getEmail(), formularioUsuario.getSenha());
-		
-		return "redirect:/welcome";
-	}
-	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Model model, String error, String logout) {
-		if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
+		List<Usuario> finalClientList = usuarioService.findAll();
 
-        if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
+		List<ConsumerFinalClientDTO> dtoList = new ArrayList<>();
+		finalClientList.forEach(fc -> dtoList.add(fc.toConsumerFinalClientDTO()));
 
-		
-		return "login";
-	}
-	
-	@RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
-	public String welcome(Model model) {
-		return "welcome";
+		return GenericsUtil.objectToResponse(dtoList);
+
 	}
 	
 }

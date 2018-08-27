@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
 
+import br.edu.fapce.nexti.security.dto.loginuser.ResponseLoginUserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -48,4 +49,7 @@ public class LoginUser implements Serializable{
 	@Column(name = "user_role", nullable = false)
 	private UserRole userRole;
 	
+	public ResponseLoginUserDTO toResponseLoginUserDTO() {
+		return new ResponseLoginUserDTO(this);
+	}
 }
