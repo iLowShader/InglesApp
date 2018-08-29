@@ -42,11 +42,11 @@ public class LoginUser implements Serializable{
 	@Column(name="email", nullable = false, unique = true)
 	private String email;
 	
-	@Column(name="password", nullable = false)
+	@Column(name="senha", nullable = false)
 	private String password;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name = "user_role", nullable = false)
+	@Column(name = "userrole", nullable = false)
 	private UserRole userRole;
 	
 	public ResponseLoginUserDTO toResponseLoginUserDTO() {

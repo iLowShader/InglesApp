@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.edu.fapce.nexti.security.dto.loginuser.LoginUserDTO;
 import br.edu.fapce.nexti.security.repository.LoginUserRepository;
 import br.edu.fapce.nexti.service.ErrorsService;
 import br.edu.fapce.nexti.util.PasswordUtils;
 
+@Service
 public class LoginUserService {
 
 	@Autowired
