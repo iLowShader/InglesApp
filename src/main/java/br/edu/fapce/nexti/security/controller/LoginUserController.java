@@ -29,7 +29,7 @@ public class LoginUserController {
 	private LoginUserService loginUserService;
 
 	@SuppressWarnings("rawtypes")
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasRole('ROLE_USUARIO')")
 	@RequestMapping(value = V1_LOGIN_USER, method = POST)
 	public ResponseEntity save(@Valid @RequestBody LoginUserDTO dto, BindingResult result) {
 
@@ -45,7 +45,10 @@ public class LoginUserController {
 		}
 
 		LoginUser loginUser = loginUserService.save(dto);
+		System.out.println(loginUser.getUserRole());
+		System.out.println(loginUser.getEmail());
 		return GenericsUtil.objectToResponse(loginUser.toResponseLoginUserDTO());
+		
 	}
 
 }

@@ -63,6 +63,7 @@ public class LoginUserService {
 	
 	public LoginUser loginUserFromLoginUserDTO(LoginUserDTO loginUserDTO) {
 		return LoginUser.builder().email(loginUserDTO.getLoginUserEmail()).password(loginUserDTO.getLoginUserPassword())
-				.userRole(loginUserDTO.getLoginUserRole()).build();
+				.userRole(loginUserDTO.getLoginUserRole())
+				.build();
 	}
 }

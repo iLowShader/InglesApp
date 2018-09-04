@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
@@ -17,10 +18,10 @@ public class Application extends SpringBootServletInitializer{
 	@Autowired
 	LoginUserService loginUserService;
 
-//	@Override
-//    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-//        return application.sources(Application.class);
-//    }
+	@Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(Application.class);
+    }
 	
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -29,6 +30,9 @@ public class Application extends SpringBootServletInitializer{
 	@Bean
 	public CommandLineRunner commandLineRunner() {
 		return args -> {
+			
+			createAdminUser();
+			
 			createDefaultFinalUser();
 
 		};
@@ -39,6 +43,17 @@ public class Application extends SpringBootServletInitializer{
 		if (loginUser == null) {
 			LoginUser loginUser1 = LoginUser.builder().email("defaultfinaluser@gmail.com").password("123")
 					.userRole(UserRole.ROLE_USUARIO).build();
+			loginUserService.save(loginUser1);
+		}
+	}
+	
+	private void createAdminUser() {
+		String email = "admin@gmail.com";
+		String password = "123";
+		LoginUser loginUser = loginUserService.findByEmail(email);
+		if (loginUser == null) {
+			LoginUser loginUser1 = LoginUser.builder().email(email).password(password).userRole(UserRole.ROLE_ADMIN)
+					.build();
 			loginUserService.save(loginUser1);
 		}
 	}

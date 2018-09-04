@@ -2,7 +2,6 @@ package br.edu.fapce.nexti.security.dto.loginuser;
 
 import br.edu.fapce.nexti.security.model.LoginUser;
 import br.edu.fapce.nexti.security.model.UserRole;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
