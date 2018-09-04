@@ -1,4 +1,4 @@
-package br.edu.fapce.nexti;
+package br.edu.fapce.nexti.controller;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
