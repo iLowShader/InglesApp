@@ -1,4 +1,4 @@
-package br.edu.fapce.nexti.validator;
+package br.edu.fapce.nexti.controller.validator;
 
 import java.util.List;
 

@@ -31,8 +31,6 @@ public class Application extends SpringBootServletInitializer{
 	public CommandLineRunner commandLineRunner() {
 		return args -> {
 			
-			createAdminUser();
-			
 			createDefaultFinalUser();
 
 		};
@@ -47,15 +45,5 @@ public class Application extends SpringBootServletInitializer{
 		}
 	}
 	
-	private void createAdminUser() {
-		String email = "admin@gmail.com";
-		String password = "123";
-		LoginUser loginUser = loginUserService.findByEmail(email);
-		if (loginUser == null) {
-			LoginUser loginUser1 = LoginUser.builder().email(email).password(password).userRole(UserRole.ROLE_ADMIN)
-					.build();
-			loginUserService.save(loginUser1);
-		}
-	}
 	
 }

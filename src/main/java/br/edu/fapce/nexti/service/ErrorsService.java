@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.edu.fapce.nexti.controller.validator.MyValidator;
 import br.edu.fapce.nexti.security.model.LoginUser;
 import br.edu.fapce.nexti.security.model.LoginUserService;
-import br.edu.fapce.nexti.validator.MyValidator;
 
 @Service
 public class ErrorsService {

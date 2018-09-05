@@ -8,7 +8,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,14 +22,13 @@ import br.edu.fapce.nexti.util.GenericsUtil;
 @RestController
 @CrossOrigin(origins = "*")
 public class LoginUserController {
-	private static final String V1_LOGIN_USER = "/v1/loginUser";
+	private static final String REGISTER_USER = "/cadastrar";
 
 	@Autowired
 	private LoginUserService loginUserService;
 
 	@SuppressWarnings("rawtypes")
-	@PreAuthorize("hasRole('ROLE_USUARIO')")
-	@RequestMapping(value = V1_LOGIN_USER, method = POST)
+	@RequestMapping(value = REGISTER_USER, method = POST)
 	public ResponseEntity save(@Valid @RequestBody LoginUserDTO dto, BindingResult result) {
 
 		if (result.hasErrors()) {
@@ -45,8 +43,6 @@ public class LoginUserController {
 		}
 
 		LoginUser loginUser = loginUserService.save(dto);
-		System.out.println(loginUser.getUserRole());
-		System.out.println(loginUser.getEmail());
 		return GenericsUtil.objectToResponse(loginUser.toResponseLoginUserDTO());
 		
 	}

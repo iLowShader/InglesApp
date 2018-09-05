@@ -10,65 +10,45 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Proxy;
+
+import br.edu.fapce.nexti.security.model.LoginUser;
+import groovy.transform.builder.Builder;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "biblioteca")
-public class Biblioteca implements Serializable{
-	
-	/**
-	 * 
-	 */
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")
+@Proxy(lazy = true)
+public class Biblioteca implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	private Long id;
-	private Usuario usuario;
-	private String nome;
-	private List<PalavrasBiblioteca> palavras;
-	
-	public Biblioteca() {
-		
-	}
 
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-	public Long getId() {
-		return id;
-	}
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+	@Column(name = "login_userid", nullable = false)
+	private LoginUser usuario;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	public Usuario getUsuario() {
-		return usuario;
-	}
-	
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-	
-	
+	// private Usuario usuario;
+
 	@Column(name = "nome", nullable = false)
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+	private String nome;
 
 	@OneToMany(mappedBy = "biblioteca", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	public List<PalavrasBiblioteca> getPalavras() {
-		return palavras;
-	}
+	private List<PalavrasBiblioteca> palavras;
 
-	public void setPalavras(List<PalavrasBiblioteca> palavras) {
-		this.palavras = palavras;
-	}
-	
-	
 }
