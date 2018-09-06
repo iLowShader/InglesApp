@@ -1,26 +1,23 @@
 package br.edu.fapce.nexti.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RestController;
 
-import br.edu.fapce.nexti.model.Biblioteca;
-import br.edu.fapce.nexti.repository.BibliotecaRepository;
+import br.edu.fapce.nexti.security.model.LoginUserService;
 
-@Controller
+@RestController
+@CrossOrigin(origins = "*")
 public class BibliotecaController {
 
+	private static final String BIBLIOTECA = "/v2/bibliotecas";
+	
 	@Autowired
-	private BibliotecaRepository repository;
+	private LoginUserService loginUserService;
 	
-	@RequestMapping("/open-library")
-	public String biblioteca(Model model) {
-		Iterable<Biblioteca> bibliotecas = repository.findAll();
-
-		model.addAttribute("bibliotecas", bibliotecas);
-
-		return "open-library";
+	
+	public ResponseEntity findAll() {
+		
 	}
-	
 }
