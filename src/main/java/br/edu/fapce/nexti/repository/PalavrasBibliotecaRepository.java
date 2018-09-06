@@ -15,7 +15,7 @@ public interface PalavrasBibliotecaRepository extends JpaRepository<PalavrasBibl
 	
 	PalavrasBiblioteca findByNome(String nome);
 	
-	
+//	PalavrasBiblioteca findByBiblioteca(Biblioteca biblioteca);
 	
 	
 }
