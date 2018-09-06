@@ -15,6 +15,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
 
+import br.edu.fapce.nexti.dto.biblioteca.ResponseBibliotecaDTO;
 import br.edu.fapce.nexti.security.model.LoginUser;
 import groovy.transform.builder.Builder;
 import lombok.AllArgsConstructor;
@@ -51,4 +52,7 @@ public class Biblioteca implements Serializable {
 	@OneToMany(mappedBy = "biblioteca", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<PalavrasBiblioteca> palavras;
 
+	public ResponseBibliotecaDTO toBibliotecaDTO() {
+		return new ResponseBibliotecaDTO(this);
+	}
 }

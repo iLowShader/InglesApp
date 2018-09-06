@@ -1,4 +1,4 @@
-package br.edu.fapce.nexti.security.service;
+package br.edu.fapce.nexti.service;
 
 import java.util.List;
 
