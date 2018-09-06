@@ -44,7 +44,7 @@ public class LoginUserController {
 
 		LoginUser loginUser = loginUserService.save(dto);
 		return GenericsUtil.objectToResponse(loginUser.toResponseLoginUserDTO());
-		
+
 	}
 
 }
