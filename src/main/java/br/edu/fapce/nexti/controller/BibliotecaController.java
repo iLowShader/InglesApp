@@ -1,6 +1,7 @@
 package br.edu.fapce.nexti.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.fapce.nexti.dto.biblioteca.ResponseBibliotecaDTO;
 import br.edu.fapce.nexti.model.Biblioteca;
+import br.edu.fapce.nexti.security.model.LoginUser;
 import br.edu.fapce.nexti.service.BibliotecaService;
 import br.edu.fapce.nexti.util.GenericsUtil;
 
@@ -21,6 +23,8 @@ import br.edu.fapce.nexti.util.GenericsUtil;
 public class BibliotecaController {
 
 	private static final String BIBLIOTECA = "/v2/bibliotecas";
+	
+	private static final String BIBLIOTECASUSUARIO = "/v2/bibliotecasAndUsuario";
 
 	@Autowired
 	private BibliotecaService bibliotecaService;
@@ -37,6 +41,16 @@ public class BibliotecaController {
 		return GenericsUtil.objectToResponse(dtoList);
 	}
 	
-	
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value=BIBLIOTECASUSUARIO, method = POST)
+	public ResponseEntity findByUsuario(LoginUser usuario) {
+		
+		List<Biblioteca> listaBibliotecasByUsuario = bibliotecaService.findByUsuarioId(usuario);
+		
+		List<ResponseBibliotecaDTO> dtoListByUsuario = new ArrayList<>();
+		listaBibliotecasByUsuario.forEach(bi->dtoListByUsuario.add(bi.toBibliotecaDTO()));
+		
+		return GenericsUtil.objectToResponse(dtoListByUsuario);
+	}
 	
 }

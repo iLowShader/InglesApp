@@ -14,19 +14,15 @@ public class BibliotecaService {
 
 	@Autowired
 	private BibliotecaRepository bibliotecaRepository;
-	//
-	// @Autowired
-	// private LoginUserService usuarioService;
 
 	public List<Biblioteca> findAll() {
 		return bibliotecaRepository.findAll();
 	}
 
-	// public List<Biblioteca> findByUsuarioId(Long usuarioId){
-	// LoginUser usuario = usuarioService.findById(usuarioId);
-	//
-	// ***Missing return***
-	// }
+	 public List<Biblioteca> findByUsuarioId(LoginUser usuario){
+		 return bibliotecaRepository.findByUsuarioId(usuario.getId());
+	
+	 }
 
 	public Biblioteca findByNome(String nome) {
 		return bibliotecaRepository.findByNome(nome);
