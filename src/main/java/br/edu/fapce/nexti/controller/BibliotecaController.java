@@ -21,21 +21,22 @@ import br.edu.fapce.nexti.util.GenericsUtil;
 public class BibliotecaController {
 
 	private static final String BIBLIOTECA = "/v2/bibliotecas";
-	
+
 	@Autowired
 	private BibliotecaService bibliotecaService;
-	
+
 	@SuppressWarnings("rawtypes")
-	@RequestMapping(value = BIBLIOTECA, method= GET)
+	@RequestMapping(value = BIBLIOTECA, method = GET)
 	public ResponseEntity findAll() {
-		
+
 		List<Biblioteca> listaBibliotecas = bibliotecaService.findAll();
-		
+
 		List<ResponseBibliotecaDTO> dtoList = new ArrayList<>();
 		listaBibliotecas.forEach(bi -> dtoList.add(bi.toBibliotecaDTO()));
-		
+
 		return GenericsUtil.objectToResponse(dtoList);
 	}
+	
 	
 	
 }

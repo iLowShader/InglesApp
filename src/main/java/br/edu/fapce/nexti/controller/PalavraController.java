@@ -1,28 +1,40 @@
 package br.edu.fapce.nexti.controller;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import br.edu.fapce.nexti.model.Biblioteca;
+import br.edu.fapce.nexti.dto.palavra.ResponsePalavraDTO;
 import br.edu.fapce.nexti.model.PalavrasBiblioteca;
-import br.edu.fapce.nexti.repository.PalavrasBibliotecaRepository;
+import br.edu.fapce.nexti.service.PalavraService;
+import br.edu.fapce.nexti.util.GenericsUtil;
 
-@Controller
+@RestController
+@CrossOrigin(origins = "*")
 public class PalavraController {
 
-	@Autowired
-	private PalavrasBibliotecaRepository repository;
+	private static final String PALAVRAS = "/v2/palavras";
 	
-	@RequestMapping("/biblioteca/{nome}")
-	public String listaPalavras(Model model, Biblioteca biblioteca) {
-
-		Iterable<PalavrasBiblioteca> palavras = repository.findByBiblioteca(biblioteca);
-
-		model.addAttribute("palavras", palavras);
-
-		return "open-library";
+	@Autowired
+	private PalavraService palavraService;
+	
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value = PALAVRAS, method = GET)
+	public ResponseEntity findAll() {
+		
+		List<PalavrasBiblioteca> listaPalavras = palavraService.findAll();
+		
+		List<ResponsePalavraDTO> dtoList = new ArrayList<>();
+		listaPalavras.forEach(pa->dtoList.add(pa.toPalavraDTO()));
+		
+		return GenericsUtil.objectToResponse(dtoList);
 	}
 	
 }

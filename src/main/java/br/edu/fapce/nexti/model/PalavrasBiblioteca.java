@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
 
+import br.edu.fapce.nexti.dto.palavra.ResponsePalavraDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -48,4 +49,7 @@ public class PalavrasBiblioteca implements Serializable {
 	@Column(name = "traducao2", nullable = true)
 	private String traducao2;
 
+	public ResponsePalavraDTO toPalavraDTO() {
+		return new ResponsePalavraDTO(this);
+	}
 }
