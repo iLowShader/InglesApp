@@ -45,7 +45,7 @@ public class BibliotecaController {
 	@RequestMapping(value=BIBLIOTECASUSUARIO, method = POST)
 	public ResponseEntity findByUsuario(LoginUser usuario) {
 		
-		List<Biblioteca> listaBibliotecasByUsuario = bibliotecaService.findByUsuarioId(usuario);
+		List<Biblioteca> listaBibliotecasByUsuario = bibliotecaService.findAllByUsuario(usuario);
 		
 		List<ResponseBibliotecaDTO> dtoListByUsuario = new ArrayList<>();
 		listaBibliotecasByUsuario.forEach(bi->dtoListByUsuario.add(bi.toBibliotecaDTO()));

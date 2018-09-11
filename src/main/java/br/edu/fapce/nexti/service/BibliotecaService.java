@@ -19,9 +19,8 @@ public class BibliotecaService {
 		return bibliotecaRepository.findAll();
 	}
 
-	 public List<Biblioteca> findByUsuarioId(LoginUser usuario){
-		 return bibliotecaRepository.findByUsuarioId(usuario.getId());
-	
+	 public List<Biblioteca> findAllByUsuario(LoginUser usuario){
+		 return bibliotecaRepository.findAllByUsuario(usuario);
 	 }
 
 	public Biblioteca findByNome(String nome) {
