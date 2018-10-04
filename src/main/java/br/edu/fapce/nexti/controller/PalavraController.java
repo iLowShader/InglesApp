@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.edu.fapce.nexti.dto.biblioteca.ResponseBibliotecaDTO;
 import br.edu.fapce.nexti.dto.palavra.ResponsePalavraDTO;
+import br.edu.fapce.nexti.model.Biblioteca;
 import br.edu.fapce.nexti.model.PalavrasBiblioteca;
 import br.edu.fapce.nexti.service.PalavraService;
 import br.edu.fapce.nexti.util.GenericsUtil;
@@ -46,7 +46,7 @@ public class PalavraController {
 
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = PALVRASBYBIBLIOTECA, method = POST)
-	public ResponseEntity findByBiblioteca(@Valid @RequestBody ResponseBibliotecaDTO biblioteca) {
+	public ResponseEntity findByBiblioteca(@Valid @RequestBody Biblioteca biblioteca) {
 
 		List<PalavrasBiblioteca> listaPalavrasByBibliotecas = palavraService.findByBiblioteca(biblioteca);
 

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.fapce.nexti.dto.biblioteca.ResponseBibliotecaDTO;
 import br.edu.fapce.nexti.model.Biblioteca;
-import br.edu.fapce.nexti.security.dto.loginuser.ResponseLoginUserDTO;
+import br.edu.fapce.nexti.security.model.LoginUser;
 import br.edu.fapce.nexti.service.BibliotecaService;
 import br.edu.fapce.nexti.util.GenericsUtil;
 
@@ -46,7 +46,7 @@ public class BibliotecaController {
 
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = BIBLIOTECASUSUARIO, method = POST)
-	public ResponseEntity findByUsuario(@Valid @RequestBody ResponseLoginUserDTO usuario) {
+	public ResponseEntity findByUsuario(@Valid @RequestBody LoginUser usuario) {
 
 		List<Biblioteca> listaBibliotecasByUsuario = bibliotecaService.findAllByUsuario(usuario);
 

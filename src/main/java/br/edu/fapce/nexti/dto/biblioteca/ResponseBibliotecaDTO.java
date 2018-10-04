@@ -18,7 +18,7 @@ public class ResponseBibliotecaDTO {
 
 	private @NonNull Long bibliotecaid;
 	private @NonNull String nome;
-	private @NonNull LoginUser usuario;
+	private LoginUser usuario;
 	
 	public ResponseBibliotecaDTO(Biblioteca bi) {
 		setBibliotecaid(bi.getId());

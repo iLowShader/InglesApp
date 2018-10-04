@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import br.edu.fapce.nexti.model.Biblioteca;
-import br.edu.fapce.nexti.security.dto.loginuser.ResponseLoginUserDTO;
 import br.edu.fapce.nexti.security.model.LoginUser;
 
 @Repository
@@ -18,6 +17,6 @@ public interface BibliotecaRepository extends JpaRepository<Biblioteca, Long> {
 
 	Biblioteca findByUsuario(LoginUser usuario);
 
-	List<Biblioteca> findAllByUsuario(ResponseLoginUserDTO usuario);
+	List<Biblioteca> findAllByUsuario(LoginUser usuario);
 
 }

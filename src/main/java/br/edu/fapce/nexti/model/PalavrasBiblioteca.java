@@ -32,7 +32,7 @@ import lombok.Setter;
 @Proxy(lazy = true)
 public class PalavrasBiblioteca implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -4911355131744430193L;
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Biblioteca biblioteca;
 

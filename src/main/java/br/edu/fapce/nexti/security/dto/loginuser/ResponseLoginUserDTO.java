@@ -4,11 +4,13 @@ import br.edu.fapce.nexti.security.model.LoginUser;
 import br.edu.fapce.nexti.security.model.UserRole;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @EqualsAndHashCode
 public class ResponseLoginUserDTO {
 	private @NonNull Long id;

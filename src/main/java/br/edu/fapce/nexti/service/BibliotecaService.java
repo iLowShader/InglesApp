@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import br.edu.fapce.nexti.model.Biblioteca;
 import br.edu.fapce.nexti.repository.BibliotecaRepository;
-import br.edu.fapce.nexti.security.dto.loginuser.ResponseLoginUserDTO;
 import br.edu.fapce.nexti.security.model.LoginUser;
 
 @Service
@@ -20,7 +19,7 @@ public class BibliotecaService {
 		return bibliotecaRepository.findAll();
 	}
 
-	public List<Biblioteca> findAllByUsuario(ResponseLoginUserDTO usuario) {
+	public List<Biblioteca> findAllByUsuario(LoginUser usuario) {
 		return bibliotecaRepository.findAllByUsuario(usuario);
 	}
 
@@ -34,6 +33,10 @@ public class BibliotecaService {
 
 	public Biblioteca findByUsuario(LoginUser usuario) {
 		return bibliotecaRepository.findByUsuario(usuario);
+	}
+	
+	public Biblioteca save(Biblioteca biblioteca) {
+		return bibliotecaRepository.save(biblioteca);
 	}
 
 }
