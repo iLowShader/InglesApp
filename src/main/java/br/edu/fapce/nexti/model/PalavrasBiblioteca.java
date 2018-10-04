@@ -52,4 +52,8 @@ public class PalavrasBiblioteca implements Serializable {
 	public ResponsePalavraDTO toPalavraDTO() {
 		return new ResponsePalavraDTO(this);
 	}
+	
+	public void a() {
+		
+	}
 }
