@@ -52,7 +52,7 @@ public class Application extends SpringBootServletInitializer {
 		if (loginUser == null) {
 			LoginUser loginUser1 = LoginUser.builder().email("defaultfinaluser@gmail.com").password("123")
 					.userRole(UserRole.ROLE_USUARIO).build();
-			loginUserService.save(loginUser1);
+			loginUser1=loginUserService.save(loginUser1);
 			return loginUser1;
 		}
 		return loginUser;
@@ -62,7 +62,10 @@ public class Application extends SpringBootServletInitializer {
 		Biblioteca biblioteca = bibliotecaService.findByNome("Biblioteca1");
 		if (biblioteca == null) {
 			Biblioteca biblioteca1 = Biblioteca.builder().nome("Biblioteca1").usuario(loginUser).build();
-			bibliotecaService.save(biblioteca1);
+			biblioteca1 =bibliotecaService.save(biblioteca1);
+//			loginUser.getBiblioteca().add(biblioCteca1);
+			System.out.println(biblioteca1);
+			System.out.println(loginUser);
 			return biblioteca1;
 		}
 		return biblioteca;

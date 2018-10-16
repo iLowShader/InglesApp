@@ -32,7 +32,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-// @Proxy(lazy = true)
+//@Proxy(lazy = true)
 public class Biblioteca implements Serializable {
 
 	private static final long serialVersionUID = -4911355131744430193L;
@@ -42,7 +42,7 @@ public class Biblioteca implements Serializable {
 	private Long id;
 
 	@ManyToOne
-	@JoinColumn(name = "login_user_id")
+	@JoinColumn(name = "login_user_id", nullable = false)
 	private LoginUser usuario;
 
 	@Column(name = "nome", nullable = false)

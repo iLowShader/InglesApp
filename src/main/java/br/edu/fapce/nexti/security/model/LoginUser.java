@@ -15,8 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Proxy;
-
 import br.edu.fapce.nexti.model.Biblioteca;
 import br.edu.fapce.nexti.security.dto.loginuser.ResponseLoginUserDTO;
 import lombok.AllArgsConstructor;
@@ -35,7 +33,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 //@Proxy(lazy = false)
-
 public class LoginUser implements Serializable {
 
 	private static final long serialVersionUID = -4911355131744430193L;
@@ -54,7 +51,7 @@ public class LoginUser implements Serializable {
 	@Column(name = "userrole", nullable = false)
 	private UserRole userRole;
 
-	@OneToMany(mappedBy="usuario", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="usuario", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private List<Biblioteca> biblioteca;
 
 	public ResponseLoginUserDTO toResponseLoginUserDTO() {

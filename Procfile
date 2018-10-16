@@ -1,1 +1,1 @@
-web: java -jar taget/inglesapp-0.0.1-SNAPSHOT.jar
+web: java -jar target/classes:target/dependency/* br.edu.fapce.nexti.Application
