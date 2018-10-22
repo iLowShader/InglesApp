@@ -9,8 +9,10 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.edu.fapce.nexti.dto.biblioteca.ResponseBibliotecaComUsuarioDTO;
 import br.edu.fapce.nexti.dto.biblioteca.ResponseBibliotecaDTO;
 import br.edu.fapce.nexti.model.Biblioteca;
+import br.edu.fapce.nexti.repository.BibliotecaRepository;
 import br.edu.fapce.nexti.service.BibliotecaService;
 import br.edu.fapce.nexti.util.GenericsUtil;
 
@@ -32,8 +35,12 @@ public class BibliotecaController {
 
 	private static final String SAVEBIBLIOTECA = "/saveBiblioteca";
 
+	private static final String DELETEBIBLIOTECA = "/deleteBiblioteca/{BibliotecaId}";
+
 	@Autowired
 	private BibliotecaService bibliotecaService;
+
+	private BibliotecaRepository bibliotecaRepository;
 
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = BIBLIOTECA, method = GET)
@@ -80,4 +87,16 @@ public class BibliotecaController {
 		return bibliotecaService.save(dto);
 	}
 
+	@DeleteMapping(value = DELETEBIBLIOTECA)
+	public ResponseEntity<Biblioteca> delete(@PathVariable(value = "BibliotecaId") Long bibliotecaId) {
+		Biblioteca biblioteca = bibliotecaService.findById(bibliotecaId);
+		
+		if (biblioteca == null) {
+			System.out.println("Não foi possível deletar. Biblioteca com id " + bibliotecaId + " não encontrada.");
+			return new ResponseEntity<Biblioteca>(HttpStatus.NOT_FOUND);
+		}
+
+		bibliotecaService.delete(bibliotecaId);
+		return new ResponseEntity<Biblioteca>(HttpStatus.OK);
+	}
 }

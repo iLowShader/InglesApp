@@ -50,4 +50,8 @@ public class BibliotecaService {
 		return Biblioteca.builder().nome(bibliotecaDto.getNome()).usuario(bibliotecaDto.getUsuario()).build();
 	}
 
+	public void delete(Long id) {
+		bibliotecaRepository.delete(id);
+	}
+	
 }
