@@ -42,8 +42,9 @@ public class Application extends SpringBootServletInitializer {
 		return args -> {
 
 			LoginUser loginUser = createDefaultFinalUser();
-			Biblioteca biblioteca = createDefaultBiblioteca(loginUser);
-			createDefaultPalavra(biblioteca);
+//			Biblioteca biblioteca = createDefaultBiblioteca(loginUser);
+//			createDefaultBiblioteca2(loginUser);
+//			createDefaultPalavra(biblioteca);
 		};
 	}
 
@@ -58,28 +59,35 @@ public class Application extends SpringBootServletInitializer {
 		return loginUser;
 	}
 
-	private Biblioteca createDefaultBiblioteca(LoginUser loginUser) {
-		Biblioteca biblioteca = bibliotecaService.findByNome("Biblioteca1");
-		if (biblioteca == null) {
-			Biblioteca biblioteca1 = Biblioteca.builder().nome("Biblioteca1").usuario(loginUser).build();
-			biblioteca1 =bibliotecaService.save(biblioteca1);
-//			loginUser.getBiblioteca().add(biblioCteca1);
-			System.out.println(biblioteca1);
-			System.out.println(loginUser);
-			return biblioteca1;
-		}
-		return biblioteca;
-	}
-
-	private PalavrasBiblioteca createDefaultPalavra(Biblioteca bi) {
-		PalavrasBiblioteca palavra = palavraService.findByNome("Car");
-		if (palavra == null) {
-			PalavrasBiblioteca palavra1 = PalavrasBiblioteca.builder().nome("Car").traducao1("Carro").biblioteca(bi)
-					.build();
-			palavraService.save(palavra1);
-			return palavra1;
-		}
-		return palavra;
-	}
+//	private Biblioteca createDefaultBiblioteca(LoginUser loginUser) {
+//		Biblioteca biblioteca = bibliotecaService.findByNome("Biblioteca1");
+//		if (biblioteca == null) {
+//			Biblioteca biblioteca1 = Biblioteca.builder().nome("Biblioteca1").usuario(loginUser).build();
+//			biblioteca1 =bibliotecaService.save(biblioteca1);
+//			return biblioteca1;
+//		}
+//		return biblioteca;
+//	}
+//	
+//	private Biblioteca createDefaultBiblioteca2(LoginUser loginUser) {
+//		Biblioteca biblioteca = bibliotecaService.findByNome("Biblioteca2");
+//		if (biblioteca == null) {
+//			Biblioteca biblioteca1 = Biblioteca.builder().nome("Biblioteca2").usuario(loginUser).build();
+//			biblioteca1 =bibliotecaService.save(biblioteca1);
+//			return biblioteca1;
+//		}
+//		return biblioteca;
+//	}
+//
+//	private PalavrasBiblioteca createDefaultPalavra(Biblioteca bi) {
+//		PalavrasBiblioteca palavra = palavraService.findByNome("Car");
+//		if (palavra == null) {
+//			PalavrasBiblioteca palavra1 = PalavrasBiblioteca.builder().nome("Car").traducao1("Carro").biblioteca(bi)
+//					.build();
+//			palavraService.save(palavra1);
+//			return palavra1;
+//		}
+//		return palavra;
+//	}
 
 }

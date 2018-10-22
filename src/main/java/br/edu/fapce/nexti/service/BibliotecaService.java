@@ -5,9 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.edu.fapce.nexti.dto.biblioteca.ResponseBibliotecaComUsuarioDTO;
 import br.edu.fapce.nexti.model.Biblioteca;
 import br.edu.fapce.nexti.repository.BibliotecaRepository;
+import br.edu.fapce.nexti.security.dto.loginuser.ResponseLoginUserDTO;
 import br.edu.fapce.nexti.security.model.LoginUser;
+import br.edu.fapce.nexti.security.model.LoginUserService;
 
 @Service
 public class BibliotecaService {
@@ -15,13 +18,16 @@ public class BibliotecaService {
 	@Autowired
 	private BibliotecaRepository bibliotecaRepository;
 
+	@Autowired
+	private LoginUserService loginUserService;
+
 	public List<Biblioteca> findAll() {
 		return bibliotecaRepository.findAll();
 	}
 
-	public List<Biblioteca> findAllByUsuario(LoginUser usuario) {
-		return bibliotecaRepository.findAllByUsuario(usuario);
-	}
+	// public List<Biblioteca> findAllByEmail(String email) {
+	// return bibliotecaRepository.findAllByEmail(email);
+	// }
 
 	public Biblioteca findByNome(String nome) {
 		return bibliotecaRepository.findByNome(nome);
@@ -31,12 +37,17 @@ public class BibliotecaService {
 		return bibliotecaRepository.findById(id);
 	}
 
-	public Biblioteca findByUsuario(LoginUser usuario) {
-		return bibliotecaRepository.findByUsuario(usuario);
+	public Biblioteca save(ResponseBibliotecaComUsuarioDTO bibliotecaDTO) {
+		Biblioteca biblioteca = bibliotecaFromBibliotecaDTO(bibliotecaDTO);
+		return bibliotecaRepository.save(biblioteca);
+	}
+
+	public List<Biblioteca> findByUserId(Long id) {
+		return bibliotecaRepository.findByUsuarioId(id);
 	}
 	
-	public Biblioteca save(Biblioteca biblioteca) {
-		return bibliotecaRepository.save(biblioteca);
+	public Biblioteca bibliotecaFromBibliotecaDTO(ResponseBibliotecaComUsuarioDTO bibliotecaDto) {
+		return Biblioteca.builder().nome(bibliotecaDto.getNome()).usuario(bibliotecaDto.getUsuario()).build();
 	}
 
 }

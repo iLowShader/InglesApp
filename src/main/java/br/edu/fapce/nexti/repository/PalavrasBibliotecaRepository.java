@@ -11,7 +11,7 @@ import br.edu.fapce.nexti.model.PalavrasBiblioteca;
 @Repository
 public interface PalavrasBibliotecaRepository extends JpaRepository<PalavrasBiblioteca, Long> {
 
-	List<PalavrasBiblioteca> findByBiblioteca(Biblioteca biblioteca);
+	List<PalavrasBiblioteca> findByBibliotecaId(Long id);
 
 	PalavrasBiblioteca findById(Long id);
 

@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Proxy;
+
 import br.edu.fapce.nexti.dto.biblioteca.ResponseBibliotecaDTO;
 import br.edu.fapce.nexti.security.model.LoginUser;
 import lombok.AllArgsConstructor;
@@ -32,7 +34,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-//@Proxy(lazy = true)
+@Proxy(lazy = true)
 public class Biblioteca implements Serializable {
 
 	private static final long serialVersionUID = -4911355131744430193L;
@@ -41,7 +43,7 @@ public class Biblioteca implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "login_user_id", nullable = false)
 	private LoginUser usuario;
 
