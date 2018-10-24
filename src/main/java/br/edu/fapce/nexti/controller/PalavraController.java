@@ -1,19 +1,29 @@
 package br.edu.fapce.nexti.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.edu.fapce.nexti.dto.palavra.ResponsePalavraComBibliotecaDTO;
 import br.edu.fapce.nexti.dto.palavra.ResponsePalavraDTO;
 import br.edu.fapce.nexti.model.PalavrasBiblioteca;
+import br.edu.fapce.nexti.response.ErrorResponse;
 import br.edu.fapce.nexti.service.PalavraService;
 import br.edu.fapce.nexti.util.GenericsUtil;
 
@@ -22,6 +32,14 @@ import br.edu.fapce.nexti.util.GenericsUtil;
 public class PalavraController {
 
 	private static final String PALAVRAS = "/v2/palavras";
+
+	private static final String PALAVRASPORBIBLIOTECA = "/palavrasByBiblioteca/{BibliotecaId}";
+
+	private static final String SAVEPALAVRA = "/save_Palavra";
+
+	private static final String DELETEPALAVRA = "/delete_Palavra/{PalavraId}";
+
+	private static final String UPDATEPALAVRA = "/update_palavra";
 
 	@Autowired
 	private PalavraService palavraService;
@@ -38,7 +56,7 @@ public class PalavraController {
 		return GenericsUtil.objectToResponse(dtoList);
 	}
 
-	@RequestMapping(value = "/palavrasByBiblioteca/{BibliotecaId}", method = GET)
+	@RequestMapping(value = PALAVRASPORBIBLIOTECA, method = GET)
 	public ResponseEntity findByBiblioteca(@PathVariable(value = "BibliotecaId") Long bibliotecaId) {
 		List<PalavrasBiblioteca> listaPalavrasByBiblioteca = palavraService.findByBibliotecaId(bibliotecaId);
 
@@ -48,4 +66,50 @@ public class PalavraController {
 		return GenericsUtil.objectToResponse(dtoListByBiblioteca);
 	}
 
+	@RequestMapping(value = SAVEPALAVRA, method = POST)
+	public PalavrasBiblioteca save(@Valid @RequestBody ResponsePalavraComBibliotecaDTO dto) {
+		return palavraService.save(dto);
+	}
+
+	@DeleteMapping(value = DELETEPALAVRA)
+	public ResponseEntity delete(@PathVariable(value = "PalavraId") Long palavraId) {
+		ErrorResponse<String> response = new ErrorResponse<>();
+		PalavrasBiblioteca palavra = palavraService.findById(palavraId);
+
+		if (palavra == null) {
+			return ResponseEntity.badRequest().body(response);
+		}
+
+		palavraService.delete(palavraId);
+		return ResponseEntity.ok(new ErrorResponse<String>());
+	}
+
+	@PutMapping(value = UPDATEPALAVRA)
+	public ResponseEntity update(@RequestBody PalavrasBiblioteca palavra, BindingResult result) {
+		ErrorResponse<PalavrasBiblioteca> response = new ErrorResponse<>();
+
+		try {
+			validateUpdate(palavra, result);
+			if (result.hasErrors()) {
+				result.getAllErrors().forEach(erro -> response.getErrors().add(erro.getDefaultMessage()));
+				return ResponseEntity.badRequest().body(response);
+			}
+		} catch (Exception e) {
+			response.getErrors().add(e.getMessage());
+			return ResponseEntity.badRequest().body(response);
+		}
+
+		return ResponseEntity.ok(response);
+	}
+
+	private void validateUpdate(PalavrasBiblioteca palavra, BindingResult result) {
+		if (palavra.getId() == null) {
+			result.addError(new ObjectError("Biblioteca", "Id não informado"));
+			return;
+		}
+		if (palavra.getBiblioteca().getId() == null) {
+			result.addError(new ObjectError("Biblioteca", "Id do usuario não informado"));
+			return;
+		}
+	}
 }

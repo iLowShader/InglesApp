@@ -99,7 +99,6 @@ public class BibliotecaController {
 		Biblioteca biblioteca = bibliotecaService.findById(bibliotecaId);
 
 		if (biblioteca == null) {
-			System.out.println("Não foi possível deletar. Biblioteca com id " + bibliotecaId + " não encontrada.");
 			return ResponseEntity.badRequest().body(response);
 		}
 

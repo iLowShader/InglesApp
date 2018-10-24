@@ -50,8 +50,8 @@ public class Biblioteca implements Serializable {
 	@Column(name = "nome", nullable = false)
 	private String nome;
 
-	@OneToMany(mappedBy = "biblioteca", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<PalavrasBiblioteca> palavras;
+//	@OneToMany(mappedBy = "biblioteca", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	private List<PalavrasBiblioteca> palavras;
 
 	public ResponseBibliotecaDTO toBibliotecaDTO() {
 		return new ResponseBibliotecaDTO(this);

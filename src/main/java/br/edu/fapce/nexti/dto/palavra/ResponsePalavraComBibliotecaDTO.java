@@ -14,17 +14,19 @@ import lombok.ToString;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class ResponsePalavraDTO {
+public class ResponsePalavraComBibliotecaDTO {
 
 	private @NonNull Long  id;
 	private @NonNull String nome;
 	private @NonNull String traducao1;
 	private String traducao2;
+	private @NonNull Biblioteca biblioteca; 
 	
-	public ResponsePalavraDTO(PalavrasBiblioteca pa) {
+	public ResponsePalavraComBibliotecaDTO(PalavrasBiblioteca pa) {
 		setId(pa.getId());
 		setNome(pa.getNome());
 		setTraducao1(pa.getTraducao1());
 		setTraducao2(pa.getTraducao2());
+		setBiblioteca(pa.getBiblioteca());
 	}
 }
