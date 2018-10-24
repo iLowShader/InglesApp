@@ -11,9 +11,12 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +25,7 @@ import br.edu.fapce.nexti.dto.biblioteca.ResponseBibliotecaComUsuarioDTO;
 import br.edu.fapce.nexti.dto.biblioteca.ResponseBibliotecaDTO;
 import br.edu.fapce.nexti.model.Biblioteca;
 import br.edu.fapce.nexti.repository.BibliotecaRepository;
+import br.edu.fapce.nexti.response.ErrorResponse;
 import br.edu.fapce.nexti.service.BibliotecaService;
 import br.edu.fapce.nexti.util.GenericsUtil;
 
@@ -36,6 +40,8 @@ public class BibliotecaController {
 	private static final String SAVEBIBLIOTECA = "/saveBiblioteca";
 
 	private static final String DELETEBIBLIOTECA = "/deleteBiblioteca/{BibliotecaId}";
+	
+	private static final String UPDATEBIBLIOTECA = "/updateBiblioteca";
 
 	@Autowired
 	private BibliotecaService bibliotecaService;
@@ -88,15 +94,47 @@ public class BibliotecaController {
 	}
 
 	@DeleteMapping(value = DELETEBIBLIOTECA)
-	public ResponseEntity<Biblioteca> delete(@PathVariable(value = "BibliotecaId") Long bibliotecaId) {
+	public ResponseEntity delete(@PathVariable(value = "BibliotecaId") Long bibliotecaId) {
+		ErrorResponse<String> response = new ErrorResponse<>();
 		Biblioteca biblioteca = bibliotecaService.findById(bibliotecaId);
-		
+
 		if (biblioteca == null) {
 			System.out.println("Não foi possível deletar. Biblioteca com id " + bibliotecaId + " não encontrada.");
-			return new ResponseEntity<Biblioteca>(HttpStatus.NOT_FOUND);
+			return ResponseEntity.badRequest().body(response);
 		}
 
 		bibliotecaService.delete(bibliotecaId);
-		return new ResponseEntity<Biblioteca>(HttpStatus.OK);
+		return ResponseEntity.ok(new ErrorResponse<String>());
+	}
+
+	@PutMapping(value = UPDATEBIBLIOTECA)
+	public ResponseEntity update(@RequestBody Biblioteca biblioteca, BindingResult result) {
+		ErrorResponse<Biblioteca> response = new ErrorResponse<>();
+		
+		try {
+			validateUpdate(biblioteca, result);
+			if(result.hasErrors()) {
+				result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
+				return ResponseEntity.badRequest().body(response);
+			}
+			biblioteca.setNome(biblioteca.getNome());
+			Biblioteca bibliotecaPersisted = (Biblioteca) bibliotecaService.update(biblioteca);
+		}catch (Exception e){
+			response.getErrors().add(e.getMessage());
+			return ResponseEntity.badRequest().body(response);
+		}
+		
+		return ResponseEntity.ok(response);
+	}
+	
+	private void validateUpdate(Biblioteca biblioteca, BindingResult result) {
+		if(biblioteca.getId()==null) {
+			result.addError(new ObjectError("Biblioteca", "Id não informado"));
+			return;
+		}
+		if(biblioteca.getUsuario().getId()==null) {
+			result.addError(new ObjectError("Biblioteca", "Id do usuario não informado"));
+			return;
+		}
 	}
 }

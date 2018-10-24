@@ -41,6 +41,10 @@ public class BibliotecaService {
 		Biblioteca biblioteca = bibliotecaFromBibliotecaDTO(bibliotecaDTO);
 		return bibliotecaRepository.save(biblioteca);
 	}
+	
+	public Biblioteca update(Biblioteca biblioteca) {
+		return bibliotecaRepository.save(biblioteca);
+	}
 
 	public List<Biblioteca> findByUserId(Long id) {
 		return bibliotecaRepository.findByUsuarioId(id);
