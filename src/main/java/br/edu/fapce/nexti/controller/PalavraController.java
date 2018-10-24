@@ -104,11 +104,11 @@ public class PalavraController {
 
 	private void validateUpdate(PalavrasBiblioteca palavra, BindingResult result) {
 		if (palavra.getId() == null) {
-			result.addError(new ObjectError("Biblioteca", "Id não informado"));
+			result.addError(new ObjectError("Palavra", "Id não informado"));
 			return;
 		}
 		if (palavra.getBiblioteca().getId() == null) {
-			result.addError(new ObjectError("Biblioteca", "Id do usuario não informado"));
+			result.addError(new ObjectError("Palavra", "Id da Biblioteca não informado"));
 			return;
 		}
 	}
