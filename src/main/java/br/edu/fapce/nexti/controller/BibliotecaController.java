@@ -38,6 +38,8 @@ public class BibliotecaController {
 	private static final String BIBLIOTECABYUSUARIO = "/bibliotecasFindByUser/{UserId}";
 
 	private static final String SAVEBIBLIOTECA = "/saveBiblioteca";
+	
+	private static final String SAVESEMUSUARIO = "/saveBiblioteca_SemUsuario";
 
 	private static final String DELETEBIBLIOTECA = "/deleteBiblioteca/{BibliotecaId}";
 	
@@ -93,6 +95,11 @@ public class BibliotecaController {
 		return bibliotecaService.save(dto);
 	}
 
+	@RequestMapping(value = SAVESEMUSUARIO, method = POST)
+	public Biblioteca saveSemUsuario(@Valid @RequestBody ResponseBibliotecaDTO dto) {
+		return bibliotecaService.saveSemUsuario(dto);
+	}
+	
 	@DeleteMapping(value = DELETEBIBLIOTECA)
 	public ResponseEntity delete(@PathVariable(value = "BibliotecaId") Long bibliotecaId) {
 		ErrorResponse<String> response = new ErrorResponse<>();

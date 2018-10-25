@@ -6,10 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.fapce.nexti.dto.biblioteca.ResponseBibliotecaComUsuarioDTO;
+import br.edu.fapce.nexti.dto.biblioteca.ResponseBibliotecaDTO;
 import br.edu.fapce.nexti.model.Biblioteca;
 import br.edu.fapce.nexti.repository.BibliotecaRepository;
-import br.edu.fapce.nexti.security.dto.loginuser.ResponseLoginUserDTO;
-import br.edu.fapce.nexti.security.model.LoginUser;
 import br.edu.fapce.nexti.security.model.LoginUserService;
 
 @Service
@@ -17,9 +16,6 @@ public class BibliotecaService {
 
 	@Autowired
 	private BibliotecaRepository bibliotecaRepository;
-
-	@Autowired
-	private LoginUserService loginUserService;
 
 	public List<Biblioteca> findAll() {
 		return bibliotecaRepository.findAll();
@@ -41,7 +37,12 @@ public class BibliotecaService {
 		Biblioteca biblioteca = bibliotecaFromBibliotecaDTO(bibliotecaDTO);
 		return bibliotecaRepository.save(biblioteca);
 	}
-	
+
+	public Biblioteca saveSemUsuario(ResponseBibliotecaDTO bibliotecaDTO) {
+		Biblioteca biblioteca = bibliotecaSemUsuarioFromBibliotecaDTO(bibliotecaDTO);
+		return bibliotecaRepository.save(biblioteca);
+	}
+
 	public Biblioteca update(Biblioteca biblioteca) {
 		return bibliotecaRepository.save(biblioteca);
 	}
@@ -49,13 +50,17 @@ public class BibliotecaService {
 	public List<Biblioteca> findByUserId(Long id) {
 		return bibliotecaRepository.findByUsuarioId(id);
 	}
-	
+
 	public Biblioteca bibliotecaFromBibliotecaDTO(ResponseBibliotecaComUsuarioDTO bibliotecaDto) {
 		return Biblioteca.builder().nome(bibliotecaDto.getNome()).usuario(bibliotecaDto.getUsuario()).build();
+	}
+
+	public Biblioteca bibliotecaSemUsuarioFromBibliotecaDTO(ResponseBibliotecaDTO bibliotecaDto) {
+		return Biblioteca.builder().nome(bibliotecaDto.getNome()).build();
 	}
 
 	public void delete(Long id) {
 		bibliotecaRepository.delete(id);
 	}
-	
+
 }

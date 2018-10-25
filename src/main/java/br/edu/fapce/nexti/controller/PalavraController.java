@@ -36,6 +36,8 @@ public class PalavraController {
 	private static final String PALAVRASPORBIBLIOTECA = "/palavrasByBiblioteca/{BibliotecaId}";
 
 	private static final String SAVEPALAVRA = "/save_Palavra";
+	
+	private static final String SAVEPALAVRASEMBIBLIOTECA = "/save_Palavra_sem_Biblioteca";
 
 	private static final String DELETEPALAVRA = "/delete_Palavra/{PalavraId}";
 
@@ -67,8 +69,13 @@ public class PalavraController {
 	}
 
 	@RequestMapping(value = SAVEPALAVRA, method = POST)
-	public PalavrasBiblioteca save(@Valid @RequestBody ResponsePalavraComBibliotecaDTO dto) {
+	public PalavrasBiblioteca saveComBiblioteca(@Valid @RequestBody ResponsePalavraComBibliotecaDTO dto) {
 		return palavraService.save(dto);
+	}
+	
+	@RequestMapping(value = SAVEPALAVRASEMBIBLIOTECA, method = POST)
+	public PalavrasBiblioteca save(@Valid @RequestBody ResponsePalavraDTO dto) {
+		return palavraService.saveSemBiblioteca(dto);
 	}
 
 	@DeleteMapping(value = DELETEPALAVRA)
