@@ -27,7 +27,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-//@Proxy(lazy = false)
+// @Proxy(lazy = false)
 public class LoginUser implements Serializable {
 
 	private static final long serialVersionUID = -4911355131744430193L;
@@ -46,8 +46,11 @@ public class LoginUser implements Serializable {
 	@Column(name = "userrole", nullable = false)
 	private UserRole userRole;
 
-//	@OneToMany(mappedBy="usuario", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-//	private List<Biblioteca> biblioteca;
+	@Column(name = "nome", nullable = false)
+	private String nome;
+
+	// @OneToMany(mappedBy="usuario", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	// private List<Biblioteca> biblioteca;
 
 	public ResponseLoginUserDTO toResponseLoginUserDTO() {
 		return new ResponseLoginUserDTO(this);
