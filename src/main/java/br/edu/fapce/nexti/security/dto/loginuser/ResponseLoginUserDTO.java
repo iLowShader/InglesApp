@@ -16,12 +16,10 @@ public class ResponseLoginUserDTO {
 	private @NonNull Long id;
 	private @NonNull String email;
 	private @NonNull UserRole userRole;
-//	private @NonNull String nome;
 
 	public ResponseLoginUserDTO(LoginUser lu) {
 		setId(lu.getId());
 		setEmail(lu.getEmail());
 		setUserRole(lu.getUserRole());
-//		setNome(lu.getNome());
 	}
 }

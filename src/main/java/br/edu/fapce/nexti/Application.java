@@ -52,7 +52,7 @@ public class Application extends SpringBootServletInitializer {
 		LoginUser loginUser = loginUserService.findByEmail("defaultfinaluser@gmail.com");
 		if (loginUser == null) {
 			LoginUser loginUser1 = LoginUser.builder().email("defaultfinaluser@gmail.com").password("123")
-					.userRole(UserRole.ROLE_USUARIO).nome("LoginUserDefault").build();
+					.userRole(UserRole.ROLE_USUARIO).build();
 			loginUser1=loginUserService.save(loginUser1);
 			return loginUser1;
 		}

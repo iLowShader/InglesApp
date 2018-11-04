@@ -13,7 +13,5 @@ public class LoginDTO {
 	private String username;
 	@NotEmpty(message = "o campo password não pode ser vazio.")
 	private String password;
-//	@NotEmpty(message = "o campo nome não pode ser vazio.")
-//	private String nome;
 
 }
