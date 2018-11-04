@@ -46,8 +46,8 @@ public class LoginUser implements Serializable {
 	@Column(name = "userrole", nullable = false)
 	private UserRole userRole;
 
-	@Column(name = "nome", nullable = false)
-	private String nome;
+//	@Column(name = "nome", nullable = false)
+//	private String nome;
 
 	// @OneToMany(mappedBy="usuario", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	// private List<Biblioteca> biblioteca;

@@ -18,8 +18,8 @@ public class LoginUserDTO {
 	private String loginUserPassword;
 	@NotNull(message = "O atributo [loginUserRole] do loginUser nao pode ser vazio")
 	private UserRole loginUserRole;
-	@NotNull(message = "O atributo [nome] do loginUser nao pode ser vazio")
-	private String nome;
+//	@NotEmpty(message = "O atributo [loginUserNome] do loginUser nao pode ser vazio")
+//	private String loginUserNome;
 	
 	public void setLoginUserEmail(String loginUserEmail) {
 		this.loginUserEmail = loginUserEmail.toLowerCase();
