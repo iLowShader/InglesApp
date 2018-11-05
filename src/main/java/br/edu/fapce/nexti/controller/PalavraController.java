@@ -36,8 +36,9 @@ public class PalavraController {
 	private static final String PALAVRASPORBIBLIOTECA = "/palavrasByBiblioteca/{BibliotecaId}";
 
 	private static final String SAVEPALAVRA = "/save_Palavra";
-	
-	private static final String SAVEPALAVRASEMBIBLIOTECA = "/save_Palavra_sem_Biblioteca";
+
+	// private static final String SAVEPALAVRASEMBIBLIOTECA =
+	// "/save_Palavra_sem_Biblioteca";
 
 	private static final String DELETEPALAVRA = "/delete_Palavra/{PalavraId}";
 
@@ -72,11 +73,11 @@ public class PalavraController {
 	public PalavrasBiblioteca saveComBiblioteca(@Valid @RequestBody ResponsePalavraComBibliotecaDTO dto) {
 		return palavraService.save(dto);
 	}
-	
-	@RequestMapping(value = SAVEPALAVRASEMBIBLIOTECA, method = POST)
-	public PalavrasBiblioteca save(@Valid @RequestBody ResponsePalavraDTO dto) {
-		return palavraService.saveSemBiblioteca(dto);
-	}
+
+	// @RequestMapping(value = SAVEPALAVRASEMBIBLIOTECA, method = POST)
+	// public PalavrasBiblioteca save(@Valid @RequestBody ResponsePalavraDTO dto) {
+	// return palavraService.saveSemBiblioteca(dto);
+	// }
 
 	@DeleteMapping(value = DELETEPALAVRA)
 	public ResponseEntity delete(@PathVariable(value = "PalavraId") Long palavraId) {
@@ -101,6 +102,8 @@ public class PalavraController {
 				result.getAllErrors().forEach(erro -> response.getErrors().add(erro.getDefaultMessage()));
 				return ResponseEntity.badRequest().body(response);
 			}
+			palavra.setNome(palavra.getNome());
+			PalavrasBiblioteca palavraPersisted = (PalavrasBiblioteca) palavraService.update(palavra);
 		} catch (Exception e) {
 			response.getErrors().add(e.getMessage());
 			return ResponseEntity.badRequest().body(response);

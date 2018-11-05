@@ -42,6 +42,10 @@ public class PalavraService {
 		return palavrasRepository.save(palavra);
 	}
 
+	public PalavrasBiblioteca update(PalavrasBiblioteca palavra) {
+		return palavrasRepository.save(palavra);
+	}
+	
 	public PalavrasBiblioteca palavraFromPalavraDTO(ResponsePalavraComBibliotecaDTO dto) {
 		return PalavrasBiblioteca.builder().nome(dto.getNome()).biblioteca(dto.getBiblioteca())
 				.traducao1(dto.getTraducao1()).traducao2(dto.getTraducao2()).build();

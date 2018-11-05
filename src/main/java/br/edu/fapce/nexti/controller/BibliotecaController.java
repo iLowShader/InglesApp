@@ -36,11 +36,11 @@ public class BibliotecaController {
 	private static final String BIBLIOTECABYUSUARIO = "/bibliotecasFindByUser/{UserId}";
 
 	private static final String SAVEBIBLIOTECA = "/saveBiblioteca";
-	
-	private static final String SAVESEMUSUARIO = "/saveBiblioteca_SemUsuario";
+
+	// private static final String SAVESEMUSUARIO = "/saveBiblioteca_SemUsuario";
 
 	private static final String DELETEBIBLIOTECA = "/deleteBiblioteca/{BibliotecaId}";
-	
+
 	private static final String UPDATEBIBLIOTECA = "/updateBiblioteca";
 
 	@Autowired
@@ -91,11 +91,12 @@ public class BibliotecaController {
 		return bibliotecaService.save(dto);
 	}
 
-	@RequestMapping(value = SAVESEMUSUARIO, method = POST)
-	public Biblioteca saveSemUsuario(@Valid @RequestBody ResponseBibliotecaDTO dto) {
-		return bibliotecaService.saveSemUsuario(dto);
-	}
-	
+	// @RequestMapping(value = SAVESEMUSUARIO, method = POST)
+	// public Biblioteca saveSemUsuario(@Valid @RequestBody ResponseBibliotecaDTO
+	// dto) {
+	// return bibliotecaService.saveSemUsuario(dto);
+	// }
+
 	@DeleteMapping(value = DELETEBIBLIOTECA)
 	public ResponseEntity delete(@PathVariable(value = "BibliotecaId") Long bibliotecaId) {
 		ErrorResponse<String> response = new ErrorResponse<>();
@@ -112,29 +113,29 @@ public class BibliotecaController {
 	@PutMapping(value = UPDATEBIBLIOTECA)
 	public ResponseEntity update(@RequestBody Biblioteca biblioteca, BindingResult result) {
 		ErrorResponse<Biblioteca> response = new ErrorResponse<>();
-		
+
 		try {
 			validateUpdate(biblioteca, result);
-			if(result.hasErrors()) {
+			if (result.hasErrors()) {
 				result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 				return ResponseEntity.badRequest().body(response);
 			}
 			biblioteca.setNome(biblioteca.getNome());
 			Biblioteca bibliotecaPersisted = (Biblioteca) bibliotecaService.update(biblioteca);
-		}catch (Exception e){
+		} catch (Exception e) {
 			response.getErrors().add(e.getMessage());
 			return ResponseEntity.badRequest().body(response);
 		}
-		
+
 		return ResponseEntity.ok(response);
 	}
-	
+
 	private void validateUpdate(Biblioteca biblioteca, BindingResult result) {
-		if(biblioteca.getId()==null) {
+		if (biblioteca.getId() == null) {
 			result.addError(new ObjectError("Biblioteca", "Id não informado"));
 			return;
 		}
-		if(biblioteca.getUsuario().getId()==null) {
+		if (biblioteca.getUsuario().getId() == null) {
 			result.addError(new ObjectError("Biblioteca", "Id do usuario não informado"));
 			return;
 		}
