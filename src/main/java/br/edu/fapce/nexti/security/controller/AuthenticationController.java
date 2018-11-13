@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.fapce.nexti.security.dto.token.LoginDTO;
+import br.edu.fapce.nexti.security.model.LoginUser;
+import br.edu.fapce.nexti.security.model.LoginUserService;
 import br.edu.fapce.nexti.security.utils.JwtTokenUtil;
 import br.edu.fapce.nexti.util.GenericsUtil;
 
@@ -38,6 +40,9 @@ public class AuthenticationController {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
+	
+	@Autowired
+	private LoginUserService loginUserService;
 
 	/**
 	 * Gera e retorna um novo token JWT.
@@ -60,13 +65,13 @@ public class AuthenticationController {
 		}
 
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-				authenticationDto.getUsername(), authenticationDto.getPassword()));
+				authenticationDto.getEmail(), authenticationDto.getPassword()));
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationDto.getUsername());
+		UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationDto.getEmail());
 		String token = jwtTokenUtil.obterToken(userDetails);
-
-		return GenericsUtil.objectToResponse(token);
+		LoginUser loginUser = loginUserService.findByEmail(authenticationDto.getEmail());
+		return GenericsUtil.objectToResponse(loginUser.toResponseLoginUserDTOToken(token));
 		
 	}
 

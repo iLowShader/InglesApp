@@ -31,18 +31,18 @@ import br.edu.fapce.nexti.util.GenericsUtil;
 @CrossOrigin(origins = "*")
 public class PalavraController {
 
-	private static final String PALAVRAS = "/v2/palavras";
+	private static final String PALAVRAS = "/palavras";
 
-	private static final String PALAVRASPORBIBLIOTECA = "/palavrasByBiblioteca/{BibliotecaId}";
+	private static final String PALAVRASPORBIBLIOTECA = "/palavras/{BibliotecaId}";
 
-	private static final String SAVEPALAVRA = "/save_Palavra";
+	private static final String SAVEPALAVRA = "/palavra";
 
 	// private static final String SAVEPALAVRASEMBIBLIOTECA =
 	// "/save_Palavra_sem_Biblioteca";
 
-	private static final String DELETEPALAVRA = "/delete_Palavra/{PalavraId}";
+	private static final String DELETEPALAVRA = "/palavra/{PalavraId}";
 
-	private static final String UPDATEPALAVRA = "/update_palavra";
+	private static final String UPDATEPALAVRA = "/palavra";
 
 	@Autowired
 	private PalavraService palavraService;

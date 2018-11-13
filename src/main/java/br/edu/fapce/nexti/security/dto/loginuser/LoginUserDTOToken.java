@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class LoginUserDTO {
+public class LoginUserDTOToken {
 
 	@NotEmpty(message = "O atributo [loginUserEmail] do loginUser nao pode ser vazio")
 	private String loginUserEmail;
@@ -20,6 +20,8 @@ public class LoginUserDTO {
 	private UserRole loginUserRole;
 	@NotEmpty(message = "O atributo [loginUserNome] do loginUser nao pode ser vazio")
 	private String loginUserNome;
+	@NotEmpty(message = "O atributo [token] do loginUser nao pode ser vazio")
+	private String token;
 	
 	public void setLoginUserEmail(String loginUserEmail) {
 		this.loginUserEmail = loginUserEmail.toLowerCase();

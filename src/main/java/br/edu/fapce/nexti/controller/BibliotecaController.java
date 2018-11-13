@@ -31,17 +31,17 @@ import br.edu.fapce.nexti.util.GenericsUtil;
 @CrossOrigin(origins = "*")
 public class BibliotecaController {
 
-	private static final String BIBLIOTECA = "/v2/bibliotecas";
+	private static final String BIBLIOTECA = "/bibliotecas";
 
-	private static final String BIBLIOTECABYUSUARIO = "/bibliotecasFindByUser/{UserId}";
+	private static final String BIBLIOTECABYUSUARIO = "/bibliotecas/{UserId}";
 
-	private static final String SAVEBIBLIOTECA = "/saveBiblioteca";
+	private static final String SAVEBIBLIOTECA = "/biblioteca";
 
 	// private static final String SAVESEMUSUARIO = "/saveBiblioteca_SemUsuario";
 
-	private static final String DELETEBIBLIOTECA = "/deleteBiblioteca/{BibliotecaId}";
+	private static final String DELETEBIBLIOTECA = "/biblioteca/{BibliotecaId}";
 
-	private static final String UPDATEBIBLIOTECA = "/updateBiblioteca";
+	private static final String UPDATEBIBLIOTECA = "/biblioteca";
 
 	@Autowired
 	private BibliotecaService bibliotecaService;

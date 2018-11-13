@@ -1,22 +1,18 @@
 package br.edu.fapce.nexti.security.model;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import br.edu.fapce.nexti.model.Biblioteca;
 import br.edu.fapce.nexti.security.dto.loginuser.ResponseLoginUserDTO;
+import br.edu.fapce.nexti.security.dto.loginuser.ResponseLoginUserDTOToken;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -50,12 +46,18 @@ public class LoginUser implements Serializable {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "userrole", nullable = false)
 	private UserRole userRole;
-	
 
-//	 @OneToMany(mappedBy="usuario", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-//	 private List<Biblioteca> biblioteca;
+	@Column(name = "nome", nullable = false)
+	private String nome;
+
+	// @OneToMany(mappedBy="usuario", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	// private List<Biblioteca> biblioteca;
 
 	public ResponseLoginUserDTO toResponseLoginUserDTO() {
 		return new ResponseLoginUserDTO(this);
+	}
+
+	public ResponseLoginUserDTOToken toResponseLoginUserDTOToken(String token) {
+		return new ResponseLoginUserDTOToken(this, token);
 	}
 }

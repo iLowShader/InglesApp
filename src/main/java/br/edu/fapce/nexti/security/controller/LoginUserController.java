@@ -8,7 +8,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,7 +27,6 @@ public class LoginUserController {
 	@Autowired
 	private LoginUserService loginUserService;
 
-	@PreAuthorize("hasAnyRole('ROLE_USUARIO')")
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = REGISTER_USER, method = POST)
 	public ResponseEntity save(@Valid @RequestBody LoginUserDTO dto, BindingResult result) {

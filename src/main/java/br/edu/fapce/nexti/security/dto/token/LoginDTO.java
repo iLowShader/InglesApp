@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 public class LoginDTO {
 
-	@NotEmpty(message = "o campo username não pode ser vazio.")
-	private String username;
+	@NotEmpty(message = "o campo email não pode ser vazio.")
+	private String email;
 	@NotEmpty(message = "o campo password não pode ser vazio.")
 	private String password;
 

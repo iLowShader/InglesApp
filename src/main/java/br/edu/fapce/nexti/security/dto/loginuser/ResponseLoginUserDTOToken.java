@@ -12,16 +12,18 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode
-public class ResponseLoginUserDTO {
+public class ResponseLoginUserDTOToken {
 	private @NonNull Long id;
 	private @NonNull String email;
 	private @NonNull UserRole userRole;
 	private @NonNull String nome;
+	private @NonNull String token;
 
-	public ResponseLoginUserDTO(LoginUser lu) {
+	public ResponseLoginUserDTOToken (LoginUser lu, String token) {
 		setId(lu.getId());
 		setEmail(lu.getEmail());
 		setUserRole(lu.getUserRole());
 		setNome(lu.getNome());
+		setToken(token);
 	}
 }
