@@ -1,8 +1,5 @@
 package br.edu.fapce.nexti.controller;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +11,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.fapce.nexti.dto.biblioteca.ResponseBibliotecaComUsuarioDTO;
@@ -47,7 +45,7 @@ public class BibliotecaController {
 	private BibliotecaService bibliotecaService;
 
 	@SuppressWarnings("rawtypes")
-	@RequestMapping(value = BIBLIOTECA, method = GET)
+	@GetMapping(value = BIBLIOTECA)
 	public ResponseEntity findAll() {
 
 		List<Biblioteca> listaBibliotecas = bibliotecaService.findAll();
@@ -76,7 +74,7 @@ public class BibliotecaController {
 	// return GenericsUtil.objectToResponse(dtoListByUsuario);
 	// }
 
-	@RequestMapping(value = BIBLIOTECABYUSUARIO, method = GET)
+	@GetMapping(value = BIBLIOTECABYUSUARIO)
 	public ResponseEntity findByIdUsuario(@PathVariable(value = "UserId") Long userId) {
 		List<Biblioteca> listaBibliotecaByIdUser = bibliotecaService.findByUserId(userId);
 
@@ -86,7 +84,7 @@ public class BibliotecaController {
 		return GenericsUtil.objectToResponse(dtoListByUsuario);
 	}
 
-	@RequestMapping(value = SAVEBIBLIOTECA, method = POST)
+	@PostMapping(value = SAVEBIBLIOTECA)
 	public Biblioteca save(@Valid @RequestBody ResponseBibliotecaComUsuarioDTO dto) {
 		return bibliotecaService.save(dto);
 	}

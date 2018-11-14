@@ -9,7 +9,6 @@ import br.edu.fapce.nexti.dto.biblioteca.ResponseBibliotecaComUsuarioDTO;
 import br.edu.fapce.nexti.dto.biblioteca.ResponseBibliotecaDTO;
 import br.edu.fapce.nexti.model.Biblioteca;
 import br.edu.fapce.nexti.repository.BibliotecaRepository;
-import br.edu.fapce.nexti.security.model.LoginUserService;
 
 @Service
 public class BibliotecaService {

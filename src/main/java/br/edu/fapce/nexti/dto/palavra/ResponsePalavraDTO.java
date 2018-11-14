@@ -1,6 +1,5 @@
 package br.edu.fapce.nexti.dto.palavra;
 
-import br.edu.fapce.nexti.model.Biblioteca;
 import br.edu.fapce.nexti.model.PalavrasBiblioteca;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

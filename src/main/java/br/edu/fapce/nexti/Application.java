@@ -8,8 +8,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
-import br.edu.fapce.nexti.model.Biblioteca;
-import br.edu.fapce.nexti.model.PalavrasBiblioteca;
 import br.edu.fapce.nexti.security.model.LoginUser;
 import br.edu.fapce.nexti.security.model.LoginUserService;
 import br.edu.fapce.nexti.security.model.UserRole;
@@ -41,7 +39,8 @@ public class Application extends SpringBootServletInitializer {
 	public CommandLineRunner commandLineRunner() {
 		return args -> {
 
-			LoginUser loginUser = createDefaultFinalUser();
+//			LoginUser loginUser = 
+					createDefaultFinalUser();
 //			Biblioteca biblioteca = createDefaultBiblioteca(loginUser);
 //			createDefaultBiblioteca2(loginUser);
 //			createDefaultPalavra(biblioteca);

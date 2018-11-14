@@ -1,8 +1,5 @@
 package br.edu.fapce.nexti.controller;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +11,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.fapce.nexti.dto.palavra.ResponsePalavraComBibliotecaDTO;
@@ -48,7 +46,7 @@ public class PalavraController {
 	private PalavraService palavraService;
 
 	@SuppressWarnings("rawtypes")
-	@RequestMapping(value = PALAVRAS, method = GET)
+	@GetMapping(value = PALAVRAS)
 	public ResponseEntity findAll() {
 
 		List<PalavrasBiblioteca> listaPalavras = palavraService.findAll();
@@ -59,7 +57,7 @@ public class PalavraController {
 		return GenericsUtil.objectToResponse(dtoList);
 	}
 
-	@RequestMapping(value = PALAVRASPORBIBLIOTECA, method = GET)
+	@GetMapping(value = PALAVRASPORBIBLIOTECA)
 	public ResponseEntity findByBiblioteca(@PathVariable(value = "BibliotecaId") Long bibliotecaId) {
 		List<PalavrasBiblioteca> listaPalavrasByBiblioteca = palavraService.findByBibliotecaId(bibliotecaId);
 
@@ -69,7 +67,7 @@ public class PalavraController {
 		return GenericsUtil.objectToResponse(dtoListByBiblioteca);
 	}
 
-	@RequestMapping(value = SAVEPALAVRA, method = POST)
+	@PostMapping(value = SAVEPALAVRA)
 	public PalavrasBiblioteca saveComBiblioteca(@Valid @RequestBody ResponsePalavraComBibliotecaDTO dto) {
 		return palavraService.save(dto);
 	}
