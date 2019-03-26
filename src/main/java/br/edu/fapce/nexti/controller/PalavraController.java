@@ -58,7 +58,7 @@ public class PalavraController {
 	}
 
 	@GetMapping(value = PALAVRASPORBIBLIOTECA)
-	public ResponseEntity findByBiblioteca(@PathVariable(value = "BibliotecaId") Long bibliotecaId) {
+	public ResponseEntity<?> findByBiblioteca(@PathVariable(value = "BibliotecaId") Long bibliotecaId) {
 		List<PalavrasBiblioteca> listaPalavrasByBiblioteca = palavraService.findByBibliotecaId(bibliotecaId);
 
 		List<ResponsePalavraDTO> dtoListByBiblioteca = new ArrayList<>();
@@ -78,7 +78,7 @@ public class PalavraController {
 	// }
 
 	@DeleteMapping(value = DELETEPALAVRA)
-	public ResponseEntity delete(@PathVariable(value = "PalavraId") Long palavraId) {
+	public ResponseEntity<?> delete(@PathVariable(value = "PalavraId") Long palavraId) {
 		ErrorResponse<String> response = new ErrorResponse<>();
 		PalavrasBiblioteca palavra = palavraService.findById(palavraId);
 
@@ -91,7 +91,7 @@ public class PalavraController {
 	}
 
 	@PutMapping(value = UPDATEPALAVRA)
-	public ResponseEntity update(@RequestBody PalavrasBiblioteca palavra, BindingResult result) {
+	public ResponseEntity<?> update(@RequestBody PalavrasBiblioteca palavra, BindingResult result) {
 		ErrorResponse<PalavrasBiblioteca> response = new ErrorResponse<>();
 
 		try {
@@ -101,7 +101,7 @@ public class PalavraController {
 				return ResponseEntity.badRequest().body(response);
 			}
 			palavra.setNome(palavra.getNome());
-			PalavrasBiblioteca palavraPersisted = (PalavrasBiblioteca) palavraService.update(palavra);
+			palavraService.update(palavra);
 		} catch (Exception e) {
 			response.getErrors().add(e.getMessage());
 			return ResponseEntity.badRequest().body(response);

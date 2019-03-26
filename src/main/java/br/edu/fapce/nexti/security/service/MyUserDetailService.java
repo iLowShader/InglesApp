@@ -18,9 +18,9 @@ public class MyUserDetailService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		LoginUser funcionario = loginUserService.findByEmail(username);
-		if (funcionario != null) {
-			return JwtUserFactory.create(funcionario);
+		LoginUser loginUser = loginUserService.findByEmail(username);
+		if (loginUser != null) {
+			return JwtUserFactory.create(loginUser);
 		}
 
 		throw new UsernameNotFoundException("Email não encontrado.");

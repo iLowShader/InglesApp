@@ -56,26 +56,8 @@ public class BibliotecaController {
 		return GenericsUtil.objectToResponse(dtoList);
 	}
 
-	// @SuppressWarnings("rawtypes")
-	// @RequestMapping(value = "/bibi", method = POST)
-	// public ResponseEntity findByUsuario(@Valid @RequestBody String email) {
-	//
-	// // System.out.println(usuario.getEmail()
-	// // +"\n"+usuario.getUserRole()+
-	// // "\n"+usuario.getPassword());
-	//
-	// List<Biblioteca> listaBibliotecasByUsuario =
-	// bibliotecaService.findAllByEmail(email);
-	//
-	// List<ResponseBibliotecaDTO> dtoListByUsuario = new ArrayList<>();
-	// listaBibliotecasByUsuario.forEach(bi ->
-	// dtoListByUsuario.add(bi.toBibliotecaDTO()));
-	//
-	// return GenericsUtil.objectToResponse(dtoListByUsuario);
-	// }
-
 	@GetMapping(value = BIBLIOTECABYUSUARIO)
-	public ResponseEntity findByIdUsuario(@PathVariable(value = "UserId") Long userId) {
+	public ResponseEntity<?> findByIdUsuario(@PathVariable(value = "UserId") Long userId) {
 		List<Biblioteca> listaBibliotecaByIdUser = bibliotecaService.findByUserId(userId);
 
 		List<ResponseBibliotecaDTO> dtoListByUsuario = new ArrayList<>();
@@ -96,7 +78,7 @@ public class BibliotecaController {
 	// }
 
 	@DeleteMapping(value = DELETEBIBLIOTECA)
-	public ResponseEntity delete(@PathVariable(value = "BibliotecaId") Long bibliotecaId) {
+	public ResponseEntity<?> delete(@PathVariable(value = "BibliotecaId") Long bibliotecaId) {
 		ErrorResponse<String> response = new ErrorResponse<>();
 		Biblioteca biblioteca = bibliotecaService.findById(bibliotecaId);
 
@@ -109,7 +91,7 @@ public class BibliotecaController {
 	}
 
 	@PutMapping(value = UPDATEBIBLIOTECA)
-	public ResponseEntity update(@RequestBody Biblioteca biblioteca, BindingResult result) {
+	public ResponseEntity<?> update(@RequestBody Biblioteca biblioteca, BindingResult result) {
 		ErrorResponse<Biblioteca> response = new ErrorResponse<>();
 
 		try {
@@ -119,7 +101,7 @@ public class BibliotecaController {
 				return ResponseEntity.badRequest().body(response);
 			}
 			biblioteca.setNome(biblioteca.getNome());
-			Biblioteca bibliotecaPersisted = (Biblioteca) bibliotecaService.update(biblioteca);
+			bibliotecaService.update(biblioteca);
 		} catch (Exception e) {
 			response.getErrors().add(e.getMessage());
 			return ResponseEntity.badRequest().body(response);
