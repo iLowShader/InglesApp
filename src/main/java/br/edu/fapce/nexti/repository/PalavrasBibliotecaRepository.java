@@ -1,6 +1,7 @@
 package br.edu.fapce.nexti.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -12,7 +13,7 @@ public interface PalavrasBibliotecaRepository extends JpaRepository<PalavrasBibl
 
 	List<PalavrasBiblioteca> findByBibliotecaId(Long id);
 
-	PalavrasBiblioteca findById(Long id);
+	Optional<PalavrasBiblioteca> findById(Long id);
 
 	PalavrasBiblioteca findByNome(String nome);
 

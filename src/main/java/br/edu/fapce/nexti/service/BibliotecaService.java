@@ -1,6 +1,7 @@
 package br.edu.fapce.nexti.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class BibliotecaService {
 		return bibliotecaRepository.findByNome(nome);
 	}
 
-	public Biblioteca findById(Long id) {
+	public Optional<Biblioteca> findById(Long id) {
 		return bibliotecaRepository.findById(id);
 	}
 
@@ -59,7 +60,7 @@ public class BibliotecaService {
 	}
 
 	public void delete(Long id) {
-		bibliotecaRepository.delete(id);
+		bibliotecaRepository.deleteById(id);
 	}
 
 }

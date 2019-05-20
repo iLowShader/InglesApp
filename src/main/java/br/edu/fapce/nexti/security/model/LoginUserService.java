@@ -3,6 +3,7 @@ package br.edu.fapce.nexti.security.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,7 +45,7 @@ public class LoginUserService {
 		return loginUserRepository.findByEmail(email);
 	}
 
-	public LoginUser findById(Long loginUserId) {
+	public Optional<LoginUser> findById(Long loginUserId) {
 
 		return loginUserRepository.findById(loginUserId);
 	}

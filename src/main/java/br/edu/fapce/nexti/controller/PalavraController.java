@@ -2,6 +2,7 @@ package br.edu.fapce.nexti.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -80,7 +81,7 @@ public class PalavraController {
 	@DeleteMapping(value = DELETEPALAVRA)
 	public ResponseEntity<?> delete(@PathVariable(value = "PalavraId") Long palavraId) {
 		ErrorResponse<String> response = new ErrorResponse<>();
-		PalavrasBiblioteca palavra = palavraService.findById(palavraId);
+		Optional<PalavrasBiblioteca> palavra = palavraService.findById(palavraId);
 
 		if (palavra == null) {
 			return ResponseEntity.badRequest().body(response);

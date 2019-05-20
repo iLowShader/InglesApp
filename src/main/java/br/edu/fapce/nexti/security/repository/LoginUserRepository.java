@@ -1,5 +1,7 @@
 package br.edu.fapce.nexti.security.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.repository.CrudRepository;
 
 import br.edu.fapce.nexti.security.model.LoginUser;
@@ -10,6 +12,6 @@ public interface LoginUserRepository extends CrudRepository<LoginUser, Long>{
 	
 	void deleteById(Long Id);
 	
-	LoginUser findById(Long loginUserId);
+	Optional<LoginUser> findById(Long loginUserId);
 	
 }

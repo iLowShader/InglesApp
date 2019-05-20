@@ -6,6 +6,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,6 +33,7 @@ import br.edu.fapce.nexti.util.GenericsUtil;
 @CrossOrigin(origins = "*")
 public class AuthenticationController {
 
+	
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
@@ -74,5 +76,7 @@ public class AuthenticationController {
 		return GenericsUtil.objectToResponse(loginUser.toResponseLoginUserDTOToken(token));
 		
 	}
+	
+	
 
 }

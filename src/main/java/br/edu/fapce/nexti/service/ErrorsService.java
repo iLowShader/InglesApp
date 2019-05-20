@@ -1,6 +1,7 @@
 package br.edu.fapce.nexti.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class ErrorsService {
 	
 	public void addErrorsIfLoginUserByIdNotExist(Long loginUserId, List<String> errors) {
 		String errorMessage = "nao existe loginUser com o id [" + loginUserId + "]";
-		LoginUser loginUser = loginUserService.findById(loginUserId);
+		Optional<LoginUser> loginUser = loginUserService.findById(loginUserId);
 		MyValidator.addErrorsWhenNull(errors, errorMessage, loginUser);
 	}
 	
